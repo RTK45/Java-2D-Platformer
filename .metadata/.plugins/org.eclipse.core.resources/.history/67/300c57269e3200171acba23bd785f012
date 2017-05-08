@@ -1,0 +1,8 @@
+package gameMode;
+
+public class gameModeManager {
+
+	private Arraylist<GameState> gameStates;
+	
+	
+}
