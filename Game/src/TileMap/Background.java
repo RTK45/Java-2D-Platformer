@@ -1,6 +1,6 @@
 package TileMap;
 
-import Main.Panel;
+import Main.GamePanel;
 
 import java.awt.*;
 import java.awt.image.*;
@@ -32,8 +32,8 @@ public class Background {
 	}
 	
 	public void setPosition(double x, double y) {
-		this.x = (x * moveScale) % Panel.WIDTH;
-		this.y = (y * moveScale) % Panel.HEIGHT;
+		this.x = (x * moveScale) % GamePanel.WIDTH;
+		this.y = (y * moveScale) % GamePanel.HEIGHT;
 	}
 	
 	public void setVector(double dx, double dy) {
@@ -53,7 +53,7 @@ public class Background {
 		if(x < 0) {
 			g.drawImage(
 				image,
-				(int)x + Panel.WIDTH,
+				(int)x + GamePanel.WIDTH,
 				(int)y,
 				null
 			);
@@ -61,7 +61,7 @@ public class Background {
 		if(x > 0) {
 			g.drawImage(
 				image,
-				(int)x - Panel.WIDTH,
+				(int)x - GamePanel.WIDTH,
 				(int)y,
 				null
 			);

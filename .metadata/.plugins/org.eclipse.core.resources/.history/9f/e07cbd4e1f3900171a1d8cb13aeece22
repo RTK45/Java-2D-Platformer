@@ -1,0 +1,91 @@
+package TileMap;
+
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import javax.imageio.ImageIO;
+
+import Main.Panel;
+
+public class TileMap {
+
+	private double x;
+	private double y;
+	private int xmin;
+	private int ymin;
+	private int xmax;
+	private int ymax;
+	private double tween;
+	private int[][] map;
+	private int tileSize;
+	private int numRows;
+	private int numCols;
+	private int width;
+	private int height;
+	private BufferedImage tileset;
+	private int numTilesAcross;
+	private Tile[][] tiles;
+	private int rowOffset;
+	private int colOffset;
+	private int numRowstoDraw;
+	private int numColstoDraw;
+	
+	
+	public  TileMap(int tilesize){
+		this.tileSize = tileSize;
+		numRowstoDraw = Panel.Height / tileSize + 2;
+		numColstoDraw = Panel.Width / tileSize + 2;
+		tween = .07;
+		
+	}
+	public void loadTiles(String s){
+		try {
+			tileset = ImageIO.read(getClass().getResourceAsStream(s));
+			numTilesAcross = tileset.getWidth() / tileSize;
+			tiles = new Tile[2][numTilesAcross];
+			BufferedImage subimage;
+			for (int col = 0; col < numTilesAcross; col++){
+				subimage = tileset.getSubimage(col * tileSize, 0, tileSize, tileSize);
+				tiles[0][col] = new Tile(subimage, Tile.NORMAL);
+				subimage = tileset.getSubimage(col * tileSize, tileSize, tileSize, tileSize);
+				tiles[1][col] = new Tile(subimage, Tile.BLOCKED);
+				
+			}
+			
+			
+			}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		
+	}
+	public void loadMap(String s){
+		try {
+			InputStream in = getClass().getResourceAsStream(s);
+			BufferedReader br = new BufferedReader( new InputStreamReader(in));
+			map = new int[numRows][numCols];
+			width = numCols * tileSize;
+			height = numRows * tileSize;
+			String delims = "\\s+";
+			
+			for (int row = 0; row < numRows; row++ ){
+				String Line = br.readLine();
+				String[] tokens = Line.split(delims);
+				for (int col = 0; row < numCols; col++){
+					map[row][col] = Integer.parseInt(tokens[col]);
+				}
+			}
+		
+			
+			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	}
+	
+	

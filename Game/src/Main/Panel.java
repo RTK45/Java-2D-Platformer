@@ -2,7 +2,7 @@ package Main;
 
 import javax.swing.JPanel;
 
-import gameState.GameStateManager;
+import GameState.GameStateManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -44,7 +44,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	}
 	private void init(){
 		image = new BufferedImage(Width, Height , BufferedImage.TYPE_INT_RGB);
-		g = (Graphics2D) g;
+		g = (Graphics2D) image.getGraphics();
 		running = true;
 		GSM = new GameStateManager();
 	}
@@ -66,6 +66,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 			elapsed = System.nanoTime() - start;
 			
 			wait = targetTime - elapsed / 1000000;
+			if(wait < 0 ) wait = 5;
 			
 			try {
 				thread.sleep(wait);
@@ -87,7 +88,7 @@ public class Panel extends JPanel implements Runnable, KeyListener {
 	}
 	private void drawToScreen(){
 		Graphics g2 = getGraphics();
-		g2.drawImage(image,0,0,null);
+		g2.drawImage(image,0,0,Width * Scale, Height * Scale,null);
 		g2.dispose();
 	}
 	
